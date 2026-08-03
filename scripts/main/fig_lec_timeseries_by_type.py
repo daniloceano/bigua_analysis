@@ -5,11 +5,15 @@ Uma figura multipainel por tipo de termo (estilo Scientific Reports):
   - fig_02: Conversão (Cz, Ca, Ck, Ce)
   - fig_03: Fronteira (BAz, BAe, BKz, BKe)
   - fig_04: Geração (Ge, Gz)
+  - fig_05: Budget / tendência (∂Az/∂t, ∂Ae/∂t, ∂Kz/∂t, ∂Ke/∂t)
+  - fig_06: Resíduos (RGz, RKz, RGe, RKe)
 Cada subplot = um termo. ERA5 em preto, WRF em vermelho.
 Output: figures/paper/fig_01_lec_energy_era5_vs_wrf.png
         figures/paper/fig_02_lec_conversion_era5_vs_wrf.png
         figures/paper/fig_03_lec_boundary_era5_vs_wrf.png
         figures/paper/fig_04_lec_generation_era5_vs_wrf.png
+        figures/paper/fig_05_lec_budget_era5_vs_wrf.png
+        figures/paper/fig_06_lec_residuals_era5_vs_wrf.png
 Depends:
   results/ERA5_d02_bigua_LCT_track/ERA5_d02_bigua_LCT_track_results.csv
   results/WRF_d02_bigua_LEC_track/WRF_d02_bigua_LEC_track_results.csv
@@ -36,6 +40,18 @@ TERM_LABELS = {
     "BAz": r"$B_{A_Z}$ (W m$^{-2}$)", "BAe": r"$B_{A_E}$ (W m$^{-2}$)",
     "BKz": r"$B_{K_Z}$ (W m$^{-2}$)", "BKe": r"$B_{K_E}$ (W m$^{-2}$)",
     "Ge": r"$G_E$ (W m$^{-2}$)", "Gz": r"$G_Z$ (W m$^{-2}$)",
+    "dAzdt": r"$\partial A_Z/\partial t$ (W m$^{-2}$)", "dAedt": r"$\partial A_E/\partial t$ (W m$^{-2}$)",
+    "dKzdt": r"$\partial K_Z/\partial t$ (W m$^{-2}$)", "dKedt": r"$\partial K_E/\partial t$ (W m$^{-2}$)",
+    "RGz": r"$R_{G_Z}$ (W m$^{-2}$)", "RKz": r"$R_{K_Z}$ (W m$^{-2}$)",
+    "RGe": r"$R_{G_E}$ (W m$^{-2}$)", "RKe": r"$R_{K_E}$ (W m$^{-2}$)",
+}
+
+# Maps internal term keys to the (special-character) column names in the results CSVs
+COLUMN_NAMES = {
+    "dAzdt": "∂Az/∂t (finite diff.)",
+    "dAedt": "∂Ae/∂t (finite diff.)",
+    "dKzdt": "∂Kz/∂t (finite diff.)",
+    "dKedt": "∂Ke/∂t (finite diff.)",
 }
 
 FIGURES = [
@@ -47,6 +63,10 @@ FIGURES = [
      "shape": (2, 2), "sci": False},
     {"output": "fig_04_lec_generation_era5_vs_wrf.png", "terms": ["Ge", "Gz"],
      "shape": (1, 2), "sci": False},
+    {"output": "fig_05_lec_budget_era5_vs_wrf.png", "terms": ["dAzdt", "dAedt", "dKzdt", "dKedt"],
+     "shape": (2, 2), "sci": False},
+    {"output": "fig_06_lec_residuals_era5_vs_wrf.png", "terms": ["RGz", "RKz", "RGe", "RKe"],
+     "shape": (2, 2), "sci": False},
 ]
 
 ERA5_COLOR = "black"
@@ -75,8 +95,9 @@ def make_figure(output, terms, shape, sci):
     axes_flat = axes.flat
 
     for ax, term in zip(axes_flat, terms):
-        ax.plot(era5.index, era5[term], color=ERA5_COLOR, linewidth=1.2, label="ERA5")
-        ax.plot(wrf.index, wrf[term], color=WRF_COLOR, linewidth=1.2, label="WRF")
+        column = COLUMN_NAMES.get(term, term)
+        ax.plot(era5.index, era5[column], color=ERA5_COLOR, linewidth=1.2, label="ERA5")
+        ax.plot(wrf.index, wrf[column], color=WRF_COLOR, linewidth=1.2, label="WRF")
         ax.axhline(0, color="gray", linewidth=0.5, linestyle="--", zorder=0)
         ax.set_ylabel(TERM_LABELS[term])
         ax.tick_params(direction="in", top=True, right=True)

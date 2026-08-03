@@ -2,10 +2,18 @@
 data/raw/
 data/external/
 *.nc
+*.nc4
+*.h5
+*.hdf5
 *.grib
 *.grib2
 *.grb
 *.zarr/
+
+# WRF run outputs / logs
+*.log
+wrfout_*
+rsl.*
 
 # Results (regeneratable)
 results/processed/

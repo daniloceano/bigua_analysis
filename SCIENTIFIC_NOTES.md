@@ -50,25 +50,24 @@ onde:
 ## Datasets and Variables
 
 ### Simulação WRF
-- **Arquivo**: `data/ERA5_d02_bigua_LCT.nc`
-- **Domínio**: d02 (alta resolução aninhada)
+- **Arquivo bruto**: `data/WRF_d02_bigua.nc` (18.2 GB, 10 variáveis, sem lat/lon real)
+- **Arquivo corrigido (uso recomendado)**: `data/WRF_d02_bigua_LEC.nc` (~5.3 GB, apenas t/ght/omega/u/v, lat/lon reais)
+- **Domínio**: d02 (alta resolução, aninhado do ERA5)
 - **Condições de contorno**: ERA5 reanalysis
-- **Período**: [a ser determinado após inspeção]
-- **Variáveis necessárias**:
-  - `U`: componente zonal do vento (m/s)
-  - `V`: componente meridional do vento (m/s)
-  - `T` ou `TK`: temperatura (K)
-  - `Z` ou `GHT`: geopotencial ou altura geopotencial (m ou m²/s²)
-  - `OMEGA` ou `W`: velocidade vertical (Pa/s ou m/s)
-  - `QVAPOR` (opcional): umidade específica (kg/kg)
-- **Níveis de pressão**: [a ser confirmado — esperado: 1000, 925, 850, 700, 500, 400, 300, 250, 200, 150, 100 hPa]
-- **Resolução espacial**: [a ser determinada]
-- **Resolução temporal**: [a ser determinada]
+- **Período**: 2024-12-13 a 2024-12-16, resolução 3h (25 time steps)
+- **Variáveis** (no arquivo corrigido):
+  - `u`, `v`: componentes do vento (m/s)
+  - `t`: temperatura (K)
+  - `ght`: altura geopotencial (m) — convertida para geopotencial (m²/s²) internamente pelo LEC via `Geopotential Height`
+  - `omega`: velocidade vertical (Pa/s)
+- **Níveis de pressão**: 24 níveis, 100–1000 hPa
+- **Resolução espacial**: 786 × 879 pontos; lat [-39.47°, -18.87°], lon [-61.20°, -34.58°]
+- **Georreferência**: recuperada em 2026-08-03 a partir de arrays lat/lon fornecidos separadamente (o arquivo bruto havia perdido essa informação durante processamento com CDO) — ver `data/metadata/wrf_d02_latlon_download.json`
 
 ### Track do Ciclone
-- **Arquivo**: `data/bigua_track_track.csv`
-- **Conteúdo**: Posição (lat, lon) do centro do ciclone ao longo do tempo
-- **Método de tracking**: [a ser documentado]
+- **Arquivo**: `data/bigua_track_track_ERA.csv` (separador `;`)
+- **Conteúdo**: Posição (Lat, Lon) do centro do ciclone ao longo do tempo, mais length, width, vorticidade/altura/vento em 850 hPa
+- **Método de tracking**: detector automático de vórtices (rodado sobre ERA5)
 
 ---
 
@@ -124,6 +123,17 @@ Computar todos os termos LEC para cada time step ao longo do ciclo de vida do ci
 ---
 
 ## Results and Interpretation
+
+### 2026-08-03 — Correção: Identificação Correta do Dataset
+
+**[NOTA IMPORTANTE]** Houve uma confusão inicial no pipeline:
+- O arquivo `data/ERA5_d02_bigua_LCT.nc` foi **incorretamente** identificado como simulação WRF
+- Na verdade, era dados de reanalysis ERA5
+- O arquivo WRF correto é `data/WRF_d02_bigua.nc` (agora sendo baixado)
+
+Esta nota documenta que os scripts exploratórios foram revisados para apontar para o arquivo WRF correto.
+
+---
 
 ### 2026-07-22 — Análise Exploratória Inicial
 
@@ -186,11 +196,25 @@ Time step selecionado: 2024-12-15 12:00 (meio do período de simulação)
 
 ## Next Steps
 
-- [ ] Inspecionar estrutura do arquivo NetCDF (variáveis, dimensões, coordenadas)
-- [ ] Gerar mapas exploratórios de T, vento, Z em 1000, 850, 500, 250 hPa
+### Fase 1 — Exploração de Dados WRF (Em Andamento)
+- [ ] **AGUARDANDO**: Fazer download do arquivo WRF (`data/WRF_d02_bigua.nc`)
+  - Problema: arquivo Google Drive precisa estar com permissão "Qualquer pessoa com o link"
+  - Solução: compartilhar arquivo corretamente
+- [ ] Executar `scripts/exploratory/inspect_wrf_structure.py` (detecção automática de variáveis)
+- [ ] Executar `scripts/exploratory/explore_wrf_data.py` (verificação completa)
+- [ ] Executar `scripts/exploratory/plot_basic_fields.py` (gerar mapas 1000, 850, 500, 250 hPa)
+
+### Fase 2 — Pré-processamento
+- [ ] Extrair domínio centrado no ciclone (±15° lat/lon do track)
 - [ ] Implementar decomposição zonal-eddy
+- [ ] Validar que todas as variáveis necessárias estão disponíveis
+
+### Fase 3 — Ciclo de Energia de Lorenz
 - [ ] Implementar cálculo dos termos $K_Z$, $K_E$, $P_Z$, $P_E$
 - [ ] Implementar cálculo das conversões $C(P_E, K_E)$, $C(K_Z, K_E)$
+- [ ] Gerar séries temporais dos termos LEC
+
+### Fase 4 — Visualização e Análise
 - [ ] Gerar séries temporais dos termos LEC ao longo do ciclo de vida
 - [ ] Comparar com estudos prévios de ciclones no Atlântico Sul (Reboita et al., Gramcianinov et al.)
 

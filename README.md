@@ -15,10 +15,10 @@ O ciclone Biguá foi um sistema extratropical significativo no Atlântico Sul. E
 
 ## Dados
 
-- **Simulação WRF**: `data/ERA5_d02_bigua_LCT.nc`
-  - Domínio: d02 (alta resolução)
-  - Variáveis: u, v, T, Z, omega (verificar com script exploratório)
-  - Níveis de pressão: 1000, 925, 850, 700, 500, 400, 300, 250, 200, 150, 100 hPa (verificar)
+- **Simulação WRF**: `data/WRF_d02_bigua.nc`
+  - Domínio: d02 (alta resolução, aninhado do ERA5)
+  - Variáveis: u, v, t, z, w, q, r (verificar com script exploratório)
+  - Níveis de pressão: 24 níveis (100 a 1000 hPa)
   
 - **Track do ciclone**: `data/bigua_track_track.csv`
   - Lat/lon do centro do ciclone ao longo do tempo

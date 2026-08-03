@@ -1,0 +1,20 @@
+name: bigua
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - xarray>=2023.1.0
+  - netCDF4
+  - numpy
+  - pandas
+  - matplotlib
+  - cartopy
+  - scipy
+  - metpy
+  - dask
+  - ipython
+  - jupyter
+  - pip
+  - pip:
+    - wrf-python  # Para trabalhar com outputs do WRF

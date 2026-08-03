@@ -1,0 +1,42 @@
+# Data (large files)
+data/raw/
+data/external/
+*.nc
+*.grib
+*.grib2
+*.grb
+*.zarr/
+
+# Results (regeneratable)
+results/processed/
+results/final/
+figures/exploratory/
+figures/paper/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+env/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+._*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*~
+*.bak

@@ -1,0 +1,122 @@
+{
+  "model": "ERA5_bigua",
+  "dims": {
+    "time": 216,
+    "lon": 106,
+    "lat": 82,
+    "plev": 24
+  },
+  "variables": {
+    "q": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "specific_humidity",
+      "units": "kg kg**-1"
+    },
+    "r": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "relative_humidity",
+      "units": "%"
+    },
+    "t": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "air_temperature",
+      "units": "K"
+    },
+    "u": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "eastward_wind",
+      "units": "m s**-1"
+    },
+    "v": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "northward_wind",
+      "units": "m s**-1"
+    },
+    "w": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "lagrangian_tendency_of_air_pressure",
+      "units": "Pa s**-1"
+    },
+    "z": {
+      "shape": [
+        216,
+        24,
+        82,
+        106
+      ],
+      "standard_name": "geopotential",
+      "units": "m**2 s**-2"
+    }
+  },
+  "temporal": {
+    "start": "2024-12-11 00:00:00",
+    "end": "2024-12-19 23:00:00",
+    "n_steps": 216
+  },
+  "levels_pa": [
+    10000.0,
+    15000.0,
+    20000.0,
+    25000.0,
+    30000.0,
+    35000.0,
+    40000.0,
+    45000.0,
+    50000.0,
+    55000.0,
+    60000.0,
+    65000.0,
+    70000.0,
+    75000.0,
+    77500.0,
+    80000.0,
+    82500.0,
+    85000.0,
+    87500.0,
+    90000.0,
+    92500.0,
+    95000.0,
+    97500.0,
+    100000.0
+  ],
+  "has_real_geolocation": true,
+  "lat_range": [
+    -39.25,
+    -19.0
+  ],
+  "lon_range": [
+    -61.0,
+    -34.75
+  ],
+  "namelist_generated": "../LorenzCycleToolkit/inputs/namelist_ERA5_bigua"
+}

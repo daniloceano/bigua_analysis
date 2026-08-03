@@ -1,0 +1,21 @@
+{
+  "dataset": "WRF d02 grid coordinates (lat/lon)",
+  "description": "1D latitude and longitude arrays for the WRF_d02_bigua.nc domain (south_north and east_west dimensions), recovered after the original merged NetCDF lost its georeference during CDO processing.",
+  "files": [
+    {
+      "file": "data/metadata/wrf_d02_lat.json",
+      "content": "Latitude array, 786 values (matches south_north dimension)",
+      "range_deg": [-39.466487884521484, -18.872848510742188]
+    },
+    {
+      "file": "data/metadata/wrf_d02_lon.json",
+      "content": "Longitude array, 879 values (matches east_west dimension)",
+      "range_deg": [-61.19586944580078, -34.58289337158203]
+    }
+  ],
+  "source": "Google Drive (provided by Danilo Couto de Souza)",
+  "download_date": "2026-08-03",
+  "downloaded_by": "Danilo Couto de Souza",
+  "tool": "gdown",
+  "notes": "Used by scripts/analysis_01_preprocessing/prepare_wrf_for_lec.py to georeference data/WRF_d02_bigua_LEC.nc, replacing the index-based south_north/east_west dims with real lat/lon coordinates."
+}

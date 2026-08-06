@@ -1,0 +1,29 @@
+metadata:
+  timestamp: '2026-08-06T16:01:11.943861+00:00'
+  cyclophaser_version: 2.0.0
+  cyclones_used:
+  - bigua_track_track_WRF_cyclophaser
+filter_params:
+  use_filter: false
+  cutoff_low: 168
+  cutoff_high: 48
+  replace_endpoints_with_lowpass: 0
+  use_smoothing: 15
+  use_smoothing_twice: false
+  savgol_polynomial: 2
+phase_params:
+  threshold_intensification_length: 0.075
+  threshold_intensification_gap: 0.16
+  threshold_mature_distance: 0.125
+  threshold_mature_length: 0.03
+  threshold_decay_length: 0.075
+  threshold_decay_gap: 0.07
+  threshold_incipient_length: 0.53
+  prominence_relative: 0.47
+  distance: 10.0
+  length_scale: global
+evaluation:
+  total_cyclones: 1
+  bad_cases_count: 0
+  bad_cases_percent: 0.0
+  bad_cases: []
